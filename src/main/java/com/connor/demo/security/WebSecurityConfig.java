@@ -2,8 +2,10 @@ package com.connor.demo.security;
 
 import com.connor.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -43,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // Disable CSRF (cross site request forgery)
+
         http.csrf().disable();
 
 
@@ -53,7 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//
                 .antMatchers("/signin").permitAll()//
                 .antMatchers("/signup").permitAll()//
-//                .antMatchers("/users").permitAll()
                 .antMatchers("/h2-console/**/**").permitAll()//
                 // Disallow everything else..
                 .anyRequest().authenticated();
@@ -79,19 +82,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList(
-                "Accept", "Origin", "Content-Type", "Depth", "User-Agent", "If-Modified-Since,",
-                "Cache-Control", "Authorization", "X-Req", "X-File-Size", "X-Requested-With", "X-File-Name"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+//        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+//        configuration.setAllowCredentials(true);
+//        configuration.setAllowedHeaders(Arrays.asList(
+//                "Accept", "Origin", "Content-Type", "Depth", "User-Agent", "If-Modified-Since,",
+//                "Cache-Control", "Authorization", "X-Req", "X-File-Size", "X-Requested-With", "X-File-Name"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
+@Bean
+public FilterRegistrationBean filterRegistrationBean() {
+    final CorsConfiguration config = new CorsConfiguration();
+
+    config.setAllowCredentials(true);
+    config.addAllowedOrigin("http://localhost:4200");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+
+    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+
+    return bean;
+}
 
 
 }
