@@ -45,6 +45,8 @@ public class User implements Serializable {
 
 
 
+
+
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    @JoinTable(name = "user_group", joinColumns = {@JoinColumn(name = "user_id")},
 //            inverseJoinColumns = {@JoinColumn(name="friend_group_id")})
