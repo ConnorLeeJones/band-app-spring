@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class ArtistController {
@@ -31,8 +33,8 @@ public class ArtistController {
     }
 
     @PostMapping("/artists")
-    public ResponseEntity<Artist> addArtist(@RequestBody Artist artist) {
-        return new ResponseEntity<>(artistService.addArtist(artist), HttpStatus.OK);
+    public ResponseEntity<Artist> addArtist(HttpServletRequest request, @RequestBody Artist artist) {
+        return new ResponseEntity<>(artistService.addArtist(request, artist), HttpStatus.OK);
     }
 
 
