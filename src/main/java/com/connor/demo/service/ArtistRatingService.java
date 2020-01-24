@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ArtistRatingService {
@@ -19,6 +20,7 @@ public class ArtistRatingService {
     private ArtistService artistService;
     private UserService userService;
     private ArtistRepository artistRepository;
+
 
 
     @Autowired
@@ -32,6 +34,24 @@ public class ArtistRatingService {
 
     public Iterable<ArtistRating> findAll(){return artistRatingRepository.findAll();}
 
+    public Iterable<ArtistRating> findUserRatings(Long id){
+        User user = userService.findUserById(id);
+        if (user != null){
+            return artistRatingRepository.getArtistRatingByUserProfile(user.getUserProfile());
+        }
+        return null;
+    }
+
+
+    public ArtistRating findUserArtistRating(HttpServletRequest request, Long id){
+        Set<ArtistRating> ratings = userService.getUserByToken(request).getUserProfile().getRatings();
+        for (ArtistRating rating : ratings){
+            if (rating.getArtist().getId().equals(id)){
+                return rating;
+            }
+        }
+        return new ArtistRating(null, null, 0);
+    }
 
     public ArtistRating addRating(HttpServletRequest request, Artist artist, int rating){
         User user = userService.getUserByToken(request);
@@ -43,22 +63,12 @@ public class ArtistRatingService {
 
         ArtistRatingKey artistRatingKey = new ArtistRatingKey(user.getUserProfile().getProfileId(), artist1.getId());
 
-        ArtistRating artistRating = new ArtistRating(user.getUserProfile(), artist1, rating);
-        artistRating.setId(artistRatingKey);
-//        artist1.getRatings().add(artistRating);
-//        artistRepository.save(artist1);
-//
-//        artistRating.
-//
-//
-//        artist1.getUserProfile().add(user.getUserProfile());
-//        artistRepository.save(artist);
-//        user.getUserProfile().getArtists().add(artist);
-//        userRepository.save(user);
+        ArtistRating artistRating = new ArtistRating(artistRatingKey, user.getUserProfile(), artist1, rating);
 
-        return artistRatingRepository.save(artistRating);
 //
-//        return null;
+//        ArtistRating artistRating = new ArtistRating(user.getUserProfile(), artist1, rating);
+//        artistRating.setId(artistRatingKey);
+        return artistRatingRepository.save(artistRating);
     }
 
 }

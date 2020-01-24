@@ -34,4 +34,9 @@ public class ArtistRatingController {
         return new ResponseEntity<>(artistRatingService.addRating(request, artist, rating), HttpStatus.OK);
     }
 
+    @GetMapping("/ratings/{id}")
+    public ResponseEntity<ArtistRating> findUserArtistRating(HttpServletRequest request, @PathVariable Long id) {
+        return new ResponseEntity<>(artistRatingService.findUserArtistRating(request, id), HttpStatus.OK);
+    }
+
 }

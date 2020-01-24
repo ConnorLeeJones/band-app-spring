@@ -39,7 +39,8 @@ public class UserProfile {
 
 
     @OneToMany(mappedBy = "userProfile")
-    private Set<ArtistRating> ratings;
+    @JsonIgnore
+    private Set<ArtistRating> ratings = new HashSet<>();
 
 
     @Email
