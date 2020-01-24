@@ -1,6 +1,7 @@
 package com.connor.demo.service;
 
 import com.connor.demo.model.Artist;
+import com.connor.demo.model.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.model.UserProfile;
 import com.connor.demo.repository.ArtistRepository;
@@ -68,6 +69,11 @@ public class UserService {
         } else {
             throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
         }
+    }
+
+    public Iterable<ArtistRating> getUserRatings(Long id){
+        User user = userRepository.findUserById(id);
+        return user.getUserProfile().getRatings();
     }
 
 

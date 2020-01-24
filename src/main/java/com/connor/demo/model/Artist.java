@@ -31,6 +31,9 @@ public class Artist {
 //    @JsonManagedReference(value = "artists")
     private Set<UserProfile> userProfiles = new HashSet<>();
 
+    @OneToMany(mappedBy = "artist")
+    @JsonIgnore
+    private Set<ArtistRating> ratings;
 
 
     public Artist() {}
@@ -76,5 +79,29 @@ public class Artist {
 
     public void setUserProfile(Set<UserProfile> userProfiles) {
         this.userProfiles = userProfiles;
+    }
+
+    public Long getArtist_id() {
+        return artist_id;
+    }
+
+    public void setArtist_id(Long artist_id) {
+        this.artist_id = artist_id;
+    }
+
+    public Set<UserProfile> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setUserProfiles(Set<UserProfile> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
+
+    public Set<ArtistRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<ArtistRating> ratings) {
+        this.ratings = ratings;
     }
 }

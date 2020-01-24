@@ -28,6 +28,7 @@ public class ArtistService {
 
     public Iterable<Artist> findAll(){return artistRepository.findAll();}
 
+    public Artist findById(Long id){return artistRepository.findById(id).orElse(null);}
 
     public Artist unfollowArtist(HttpServletRequest request, Long id) {
         User user = userService.getUserByToken(request);
