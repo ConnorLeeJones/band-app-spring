@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import org.hibernate.annotations.Cascade;
 
 import java.util.HashSet;
@@ -27,8 +27,7 @@ public class UserProfile {
     private User user;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JsonBackReference(value = "artists")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Column(name = "artists")

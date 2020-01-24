@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class ArtistService {
@@ -27,15 +29,34 @@ public class ArtistService {
     public Iterable<Artist> findAll(){return artistRepository.findAll();}
 
 
-    public Artist addArtist(HttpServletRequest request, Artist artist) {
-            User user = userService.getUserByToken(request);
+    public Artist unfollowArtist(HttpServletRequest request, Long id) {
+        User user = userService.getUserByToken(request);
+        Artist artist = artistRepository.findById(id).orElse(null);
+        if (artist != null && ((HashSet<Long>) this.userService.getArtistsIdsByProfileId(user.getId())).contains(artist.getId())) {
+            artist.getUserProfile().remove(user.getUserProfile());
+            artistRepository.save(artist);
+            user.getUserProfile().getArtists().remove(artist);
+            userRepository.save(user);
 
+            return artistRepository.save(artist);
+        } else {
+            return null;
+        }
+    }
+
+
+    public Artist addArtist(HttpServletRequest request, Artist artist) {
+        User user = userService.getUserByToken(request);
+        if (!((HashSet<Long>) this.userService.getArtistsIdsByProfileId(user.getId())).contains(artist.getId())) {
             artist.getUserProfile().add(user.getUserProfile());
             artistRepository.save(artist);
             user.getUserProfile().getArtists().add(artist);
             userRepository.save(user);
 
             return artistRepository.save(artist);
+        } else {
+          return null;
+        }
     }
 
 }

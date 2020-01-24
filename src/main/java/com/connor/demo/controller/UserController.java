@@ -35,6 +35,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getArtistsByProfileId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/user/{id}/artists/ids")
+    public ResponseEntity<Iterable<Long>> getUserArtistsIdsByProfileId(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getArtistsIdsByProfileId(id), HttpStatus.OK);
+    }
+
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.CREATED)
