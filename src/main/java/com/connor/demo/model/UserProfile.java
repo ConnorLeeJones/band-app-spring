@@ -38,6 +38,10 @@ public class UserProfile {
     private Set<Artist> artists = new HashSet<>();
 
 
+    @OneToMany(mappedBy = "userProfile")
+    private Set<ArtistRating> ratings;
+
+
     @Email
     @Column(name = "email")
     private String email;
@@ -79,5 +83,13 @@ public class UserProfile {
 
     public void setArtists(Set<Artist> artists) {
         this.artists = artists;
+    }
+
+    public Set<ArtistRating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Set<ArtistRating> ratings) {
+        this.ratings = ratings;
     }
 }

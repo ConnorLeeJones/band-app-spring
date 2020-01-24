@@ -2,6 +2,7 @@ package com.connor.demo.controller;
 
 
 import com.connor.demo.model.Artist;
+import com.connor.demo.model.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class UserController {
     @GetMapping("/user/{id}/artists/ids")
     public ResponseEntity<Iterable<Long>> getUserArtistsIdsByProfileId(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getArtistsIdsByProfileId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}/ratings")
+    public ResponseEntity<Iterable<ArtistRating>> getUserRatings(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserRatings(id), HttpStatus.OK);
     }
 
 
