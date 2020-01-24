@@ -11,13 +11,13 @@ public class ArtistRating {
     private ArtistRatingKey id;
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @MapsId("profile_id")
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 
     @ManyToOne
-    @JsonIgnore
+//    @JsonIgnore
     @MapsId("artist_id")
     @JoinColumn(name = "artist_id")
     private Artist artist;
@@ -25,6 +25,13 @@ public class ArtistRating {
     private int rating;
 
     public ArtistRating() {}
+
+    public ArtistRating(ArtistRatingKey id, UserProfile userProfile, Artist artist, int rating) {
+        this.id = id;
+        this.userProfile = userProfile;
+        this.artist = artist;
+        this.rating = rating;
+    }
 
     public ArtistRating(UserProfile userProfile, Artist artist, int rating) {
         this.userProfile = userProfile;
