@@ -26,7 +26,7 @@ public class Artist {
     @Column(name = "picture_small")
     private String picture_small;
 
-    @ManyToMany(mappedBy = "artists")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "artists")
     @JsonIgnore
 //    @JsonManagedReference(value = "artists")
     private Set<UserProfile> userProfiles = new HashSet<>();

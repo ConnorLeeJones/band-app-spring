@@ -76,6 +76,16 @@ public class UserService {
         return user.getUserProfile().getArtists();
     }
 
+    public Iterable<Long> getArtistsIdsByProfileId(Long id){
+        User user = userRepository.findUserById(id);
+        Set<Artist> artists = user.getUserProfile().getArtists();
+        Set<Long> ids = new HashSet<>();
+        for (Artist artist : artists){
+            ids.add(artist.getId());
+        }
+        return ids;
+    }
+
 
     public User getUserByToken(HttpServletRequest req) {
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
