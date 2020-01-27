@@ -56,9 +56,6 @@ public class ArtistRatingService {
 
         ArtistRating artistRating = new ArtistRating(artistRatingKey, user.getUserProfile(), artist1, rating);
 
-//
-//        ArtistRating artistRating = new ArtistRating(user.getUserProfile(), artist1, rating);
-//        artistRating.setId(artistRatingKey);
         return artistRatingRepository.save(artistRating);
     }
 

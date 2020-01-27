@@ -3,6 +3,7 @@ package com.connor.demo.model.album;
 import com.connor.demo.model.UserProfile;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRatingKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 public class AlbumRating {
 
     @EmbeddedId
+    @JsonIgnore
     private AlbumRatingKey id;
 
     @ManyToOne

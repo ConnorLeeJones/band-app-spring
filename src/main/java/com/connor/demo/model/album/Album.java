@@ -1,7 +1,6 @@
 package com.connor.demo.model.album;
 
 import com.connor.demo.model.UserProfile;
-import com.connor.demo.model.artist.ArtistRating;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -21,8 +20,8 @@ public class Album {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "picture_small")
-    private String picture_small;
+    @Column(name = "cover_small")
+    private String cover_small;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "albums")
     @JsonIgnore
@@ -55,12 +54,12 @@ public class Album {
         this.title = title;
     }
 
-    public String getPicture_small() {
-        return picture_small;
+    public String getCover_small() {
+        return cover_small;
     }
 
-    public void setPicture_small(String picture_small) {
-        this.picture_small = picture_small;
+    public void setCover_small(String cover_small) {
+        this.cover_small = cover_small;
     }
 
     public Set<UserProfile> getUserProfiles() {

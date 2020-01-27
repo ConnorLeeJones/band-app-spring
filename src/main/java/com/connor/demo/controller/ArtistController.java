@@ -21,14 +21,14 @@ public class ArtistController {
     }
 
     @GetMapping("/artists")
-    public ResponseEntity<Iterable<Artist>> getUsers() {
+    public ResponseEntity<Iterable<Artist>> findAll() {
         return new ResponseEntity<>(artistService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/artists/{id}")
-    public ResponseEntity<Iterable<Artist>> getUsersByProfile(@PathVariable Long id) {
-        return new ResponseEntity<>(artistService.findAll(), HttpStatus.OK);
-    }
+//    @GetMapping("/artists/{id}")
+//    public ResponseEntity<Iterable<Artist>> getUsersByProfile(@PathVariable Long id) {
+//        return new ResponseEntity<>(artistService.findAll(), HttpStatus.OK);
+//    }
 
     @PutMapping("/artist/{id}")
     public ResponseEntity<Artist> unfollowArtist(HttpServletRequest request, @PathVariable Long id) {

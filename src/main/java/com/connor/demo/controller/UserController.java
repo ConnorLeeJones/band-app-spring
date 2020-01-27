@@ -1,6 +1,7 @@
 package com.connor.demo.controller;
 
 
+import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
@@ -44,6 +45,11 @@ public class UserController {
     @GetMapping("/user/{id}/ratings")
     public ResponseEntity<Iterable<ArtistRating>> getUserRatings(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserRatings(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}/album/ratings")
+    public ResponseEntity<Iterable<AlbumRating>> getUserAlbumRatings(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserAlbumRatings(id), HttpStatus.OK);
     }
 
 
