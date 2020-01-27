@@ -49,8 +49,7 @@ public class UserController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.CREATED)
-    public User login(//
-                        @RequestBody User user) {
+    public User login(@RequestBody User user) {
         return userService.logIn(user);
     }
 

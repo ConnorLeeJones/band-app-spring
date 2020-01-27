@@ -34,14 +34,6 @@ public class ArtistRatingService {
 
     public Iterable<ArtistRating> findAll(){return artistRatingRepository.findAll();}
 
-    public Iterable<ArtistRating> findUserRatings(Long id){
-        User user = userService.findUserById(id);
-        if (user != null){
-            return artistRatingRepository.getArtistRatingByUserProfile(user.getUserProfile());
-        }
-        return null;
-    }
-
 
     public ArtistRating findUserArtistRating(HttpServletRequest request, Long id){
         Set<ArtistRating> ratings = userService.getUserByToken(request).getUserProfile().getRatings();

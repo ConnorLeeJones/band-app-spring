@@ -13,9 +13,5 @@ public class UserProfileService {
         this.repository = repository;
     }
 
-    public UserProfile createNewProfile(Long id){
-        UserProfile newUserProfile = new UserProfile(id);
-        return repository.save(newUserProfile);
-    }
 
 }
