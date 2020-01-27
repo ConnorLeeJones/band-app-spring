@@ -1,6 +1,7 @@
-package com.connor.demo.model;
+package com.connor.demo.model.artist;
 
 
+import com.connor.demo.model.UserProfile;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

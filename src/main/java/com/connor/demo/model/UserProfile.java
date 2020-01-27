@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
+import com.connor.demo.model.album.Album;
+import com.connor.demo.model.album.AlbumRating;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +45,23 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     @JsonIgnore
     private Set<ArtistRating> ratings = new HashSet<>();
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Column(name = "albums")
+    @JoinTable(
+            name = "album_like",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id"))
+    private Set<Album> albums = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "userProfile")
+    @JsonIgnore
+    private Set<AlbumRating> album_ratings = new HashSet<>();
+
 
 
     @Email
@@ -92,5 +113,21 @@ public class UserProfile {
 
     public void setRatings(Set<ArtistRating> ratings) {
         this.ratings = ratings;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
+    }
+
+    public Set<AlbumRating> getAlbum_ratings() {
+        return album_ratings;
+    }
+
+    public void setAlbum_ratings(Set<AlbumRating> album_ratings) {
+        this.album_ratings = album_ratings;
     }
 }

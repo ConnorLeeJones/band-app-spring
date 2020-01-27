@@ -1,8 +1,8 @@
 package com.connor.demo.controller;
 
 
-import com.connor.demo.model.Artist;
-import com.connor.demo.model.ArtistRating;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

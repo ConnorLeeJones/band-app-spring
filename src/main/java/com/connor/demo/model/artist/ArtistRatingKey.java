@@ -1,4 +1,4 @@
-package com.connor.demo.model;
+package com.connor.demo.model.artist;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

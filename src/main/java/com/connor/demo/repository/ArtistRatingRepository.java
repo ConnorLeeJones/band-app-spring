@@ -1,8 +1,7 @@
 package com.connor.demo.repository;
 
-import com.connor.demo.model.Artist;
-import com.connor.demo.model.ArtistRating;
-import com.connor.demo.model.User;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 

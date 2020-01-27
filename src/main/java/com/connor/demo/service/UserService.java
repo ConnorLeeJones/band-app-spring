@@ -1,7 +1,7 @@
 package com.connor.demo.service;
 
-import com.connor.demo.model.Artist;
-import com.connor.demo.model.ArtistRating;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.model.UserProfile;
 import com.connor.demo.repository.UserRepository;
