@@ -4,8 +4,6 @@ import com.connor.demo.model.Artist;
 import com.connor.demo.model.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.model.UserProfile;
-import com.connor.demo.repository.ArtistRepository;
-import com.connor.demo.repository.UserProfileRepository;
 import com.connor.demo.repository.UserRepository;
 import com.connor.demo.security.CustomException;
 import com.connor.demo.security.JwtTokenProvider;

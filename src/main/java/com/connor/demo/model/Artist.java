@@ -1,12 +1,9 @@
 package com.connor.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +25,6 @@ public class Artist {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "artists")
     @JsonIgnore
-//    @JsonManagedReference(value = "artists")
     private Set<UserProfile> userProfiles = new HashSet<>();
 
     @OneToMany(mappedBy = "artist")
@@ -37,12 +33,6 @@ public class Artist {
 
 
     public Artist() {}
-
-
-//    public Artist(@NotNull Long id, UserProfile userProfile) {
-//        this.id = id;
-//        this.userProfile = userProfile;
-//    }
 
     public Artist(@NotNull Long id) {
         this.artist_id = id;
