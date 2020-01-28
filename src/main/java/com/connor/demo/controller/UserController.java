@@ -52,6 +52,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserAlbumRatings(id), HttpStatus.OK);
     }
 
+//    @GetMapping("/users/test")
+//    public ResponseEntity<Iterable<User>> test() {
+//        return new ResponseEntity<>(userService.test(), HttpStatus.OK);
+//    }
+
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.CREATED)

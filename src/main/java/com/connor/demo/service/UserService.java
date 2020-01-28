@@ -70,6 +70,10 @@ public class UserService {
         }
     }
 
+//    public Iterable<User> test(){
+//        return userRepository.findAllUserIdAndUsername();
+//    }
+
     public Iterable<ArtistRating> getUserRatings(Long id){
         User user = userRepository.findUserById(id);
         return user.getUserProfile().getRatings();
