@@ -1,5 +1,6 @@
-package com.connor.demo.model;
+package com.connor.demo.model.artist;
 
+import com.connor.demo.model.UserProfile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

@@ -1,8 +1,8 @@
 package com.connor.demo.service;
 
-import com.connor.demo.model.Artist;
-import com.connor.demo.model.ArtistRating;
-import com.connor.demo.model.ArtistRatingKey;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
+import com.connor.demo.model.artist.ArtistRatingKey;
 import com.connor.demo.model.User;
 import com.connor.demo.repository.ArtistRatingRepository;
 import com.connor.demo.repository.ArtistRepository;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -57,9 +56,6 @@ public class ArtistRatingService {
 
         ArtistRating artistRating = new ArtistRating(artistRatingKey, user.getUserProfile(), artist1, rating);
 
-//
-//        ArtistRating artistRating = new ArtistRating(user.getUserProfile(), artist1, rating);
-//        artistRating.setId(artistRatingKey);
         return artistRatingRepository.save(artistRating);
     }
 

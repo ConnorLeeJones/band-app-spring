@@ -1,7 +1,8 @@
 package com.connor.demo.service;
 
-import com.connor.demo.model.Artist;
-import com.connor.demo.model.ArtistRating;
+import com.connor.demo.model.album.AlbumRating;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.model.UserProfile;
 import com.connor.demo.repository.UserRepository;
@@ -69,9 +70,18 @@ public class UserService {
         }
     }
 
+//    public Iterable<User> test(){
+//        return userRepository.findAllUserIdAndUsername();
+//    }
+
     public Iterable<ArtistRating> getUserRatings(Long id){
         User user = userRepository.findUserById(id);
         return user.getUserProfile().getRatings();
+    }
+
+    public Iterable<AlbumRating> getUserAlbumRatings(Long id){
+        User user = userRepository.findUserById(id);
+        return user.getUserProfile().getAlbum_ratings();
     }
 
 

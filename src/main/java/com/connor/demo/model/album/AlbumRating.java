@@ -1,6 +1,9 @@
-package com.connor.demo.model;
+package com.connor.demo.model.album;
 
-
+import com.connor.demo.model.UserProfile;
+import com.connor.demo.model.artist.Artist;
+import com.connor.demo.model.artist.ArtistRatingKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,10 +11,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class ArtistRating {
+public class AlbumRating {
 
     @EmbeddedId
-    private ArtistRatingKey id;
+    @JsonIgnore
+    private AlbumRatingKey id;
 
     @ManyToOne
     @MapsId("profile_id")
@@ -19,9 +23,9 @@ public class ArtistRating {
     private UserProfile userProfile;
 
     @ManyToOne
-    @MapsId("artist_id")
-    @JoinColumn(name = "artist_id")
-    private Artist artist;
+    @MapsId("album_id")
+    @JoinColumn(name = "album_id")
+    private Album album;
 
     @Column(name = "rating")
     private int rating;
@@ -34,45 +38,28 @@ public class ArtistRating {
     @UpdateTimestamp
     private Timestamp modifiedDate;
 
-    public ArtistRating() {}
+    public AlbumRating() {}
 
-    public ArtistRating(ArtistRatingKey id, UserProfile userProfile, Artist artist, int rating) {
+    public AlbumRating(AlbumRatingKey id, UserProfile userProfile, Album album, int rating) {
         this.id = id;
         this.userProfile = userProfile;
-        this.artist = artist;
+        this.album = album;
         this.rating = rating;
     }
 
-    public ArtistRating(UserProfile userProfile, Artist artist, int rating) {
+    public AlbumRating(UserProfile userProfile, Album album, int rating) {
         this.userProfile = userProfile;
-        this.artist = artist;
+        this.album = album;
         this.rating = rating;
     }
 
-    public ArtistRatingKey getId() {
+
+    public AlbumRatingKey getId() {
         return id;
     }
 
-    public void setId(ArtistRatingKey id) {
+    public void setId(AlbumRatingKey id) {
         this.id = id;
-    }
-
-
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public UserProfile getUserProfile() {
@@ -81,6 +68,22 @@ public class ArtistRating {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public Timestamp getCreatedDate() {
