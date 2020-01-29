@@ -7,9 +7,14 @@ import com.connor.demo.model.User;
 import com.connor.demo.repository.ArtistRatingRepository;
 import com.connor.demo.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -32,6 +37,20 @@ public class ArtistRatingService {
     }
 
     public Iterable<ArtistRating> findAll(){return artistRatingRepository.findAll();}
+
+
+    public Iterable<ArtistRating> getUserArtistRatings(Long id, Integer pageNo, Integer pageSize, String sortBy)
+    {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+
+        Page<ArtistRating> pagedResult = artistRatingRepository.findByUserProfileProfileId(id, paging);
+
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return null;
+        }
+    }
 
 
     public ArtistRating findUserArtistRating(HttpServletRequest request, Long id){

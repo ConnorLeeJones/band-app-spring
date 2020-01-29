@@ -1,14 +1,12 @@
 package com.connor.demo.repository;
 
-import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
-import com.connor.demo.model.UserProfile;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ArtistRatingRepository extends JpaRepository<ArtistRating, Long> {
+public interface ArtistRatingRepository extends PagingAndSortingRepository<ArtistRating, Long> {
 
-    ArtistRating getArtistRatingByArtistAndUserProfile(Artist artist, UserProfile userProfile);
-
-    Iterable<ArtistRating> getArtistRatingByUserProfile(UserProfile userProfile);
+    Page<ArtistRating> findByUserProfileProfileId(Long id, Pageable pageable);
 
 }
