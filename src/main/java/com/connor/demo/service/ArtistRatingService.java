@@ -46,7 +46,8 @@ public class ArtistRatingService {
         Page<ArtistRating> pagedResult = artistRatingRepository.findByUserProfileProfileId(id, paging);
 
         if(pagedResult.hasContent()) {
-            return pagedResult.getContent();
+            System.out.println(pagedResult.getTotalElements());
+            return pagedResult;
         } else {
             return null;
         }
