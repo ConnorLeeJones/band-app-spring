@@ -42,7 +42,7 @@ public class ArtistRatingController {
     @GetMapping("test/ratings")
     public ResponseEntity<Iterable<ArtistRating>> findUserArtistRatings(@RequestParam Long id,
                                                             @RequestParam(defaultValue = "0") Integer pageNo,
-                                                              @RequestParam(defaultValue = "10") Integer pageSize,
+                                                              @RequestParam(defaultValue = "6") Integer pageSize,
                                                               @RequestParam(defaultValue = "rating") String sortBy) {
         return new ResponseEntity<>(artistRatingService.getUserArtistRatings(id, pageNo, pageSize, sortBy), HttpStatus.OK);
     }
