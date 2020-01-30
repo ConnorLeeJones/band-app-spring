@@ -30,6 +30,9 @@ public class AlbumRating {
     @Column(name = "rating")
     private int rating;
 
+    @Column(name = "name")
+    private String name;
+
     @CreationTimestamp
     @Column(name = "created_date", updatable=false)
     private Timestamp createdDate;
@@ -45,13 +48,15 @@ public class AlbumRating {
         this.userProfile = userProfile;
         this.album = album;
         this.rating = rating;
+        if (album != null)
+            this.name = album.getTitle();
     }
 
-    public AlbumRating(UserProfile userProfile, Album album, int rating) {
-        this.userProfile = userProfile;
-        this.album = album;
-        this.rating = rating;
-    }
+//    public AlbumRating(UserProfile userProfile, Album album, int rating) {
+//        this.userProfile = userProfile;
+//        this.album = album;
+//        this.rating = rating;
+//    }
 
 
     public AlbumRatingKey getId() {
@@ -100,5 +105,13 @@ public class AlbumRating {
 
     public void setModifiedDate(Timestamp modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

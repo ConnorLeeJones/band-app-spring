@@ -14,8 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class ArtistRatingService {
@@ -41,7 +40,12 @@ public class ArtistRatingService {
 
     public Iterable<ArtistRating> getUserArtistRatings(Long id, Integer pageNo, Integer pageSize, String sortBy)
     {
-        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+        Pageable paging;
+        if (sortBy.equalsIgnoreCase("name")){
+            paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        } else {
+            paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+        }
 
         Page<ArtistRating> pagedResult = artistRatingRepository.findByUserProfileProfileId(id, paging);
 
@@ -53,16 +57,16 @@ public class ArtistRatingService {
         }
     }
 
-
     public ArtistRating findUserArtistRating(HttpServletRequest request, Long id){
-        Set<ArtistRating> ratings = userService.getUserByToken(request).getUserProfile().getRatings();
-        for (ArtistRating rating : ratings){
-            if (rating.getArtist().getId().equals(id)){
-                return rating;
-            }
+        User user = userService.getUserByToken(request);
+        Artist artist = artistRepository.findById(id).orElse(null);
+        if (artist != null) {
+            return artistRatingRepository.findByArtistAndUserProfileProfileId(artist, user.getUserProfile().getProfileId());
         }
-        return new ArtistRating(null, null, 0);
+        return new ArtistRating(null, null, new Artist(), 0);
     }
+
+
 
     public ArtistRating addRating(HttpServletRequest request, Artist artist, int rating){
         User user = userService.getUserByToken(request);
