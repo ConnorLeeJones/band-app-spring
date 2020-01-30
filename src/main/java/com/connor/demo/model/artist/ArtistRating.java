@@ -27,6 +27,9 @@ public class ArtistRating {
     @Column(name = "rating")
     private int rating;
 
+    @Column(name = "artist_name")
+    private String artist_name;
+
     @CreationTimestamp
     @Column(name = "created_date", updatable=false)
     private Timestamp createdDate;
@@ -42,13 +45,10 @@ public class ArtistRating {
         this.userProfile = userProfile;
         this.artist = artist;
         this.rating = rating;
+        if (artist != null)
+            this.artist_name = artist.getName();
     }
 
-    public ArtistRating(UserProfile userProfile, Artist artist, int rating) {
-        this.userProfile = userProfile;
-        this.artist = artist;
-        this.rating = rating;
-    }
 
     public ArtistRatingKey getId() {
         return id;
@@ -57,8 +57,6 @@ public class ArtistRating {
     public void setId(ArtistRatingKey id) {
         this.id = id;
     }
-
-
 
     public Artist getArtist() {
         return artist;
@@ -98,5 +96,13 @@ public class ArtistRating {
 
     public void setModifiedDate(Timestamp modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public String getArtist_name() {
+        return artist_name;
+    }
+
+    public void setArtist_name(String artist_name) {
+        this.artist_name = artist_name;
     }
 }
