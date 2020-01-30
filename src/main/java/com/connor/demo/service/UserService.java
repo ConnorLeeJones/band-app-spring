@@ -1,5 +1,6 @@
 package com.connor.demo.service;
 
+import com.connor.demo.model.UserDto;
 import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
@@ -8,6 +9,7 @@ import com.connor.demo.model.UserProfile;
 import com.connor.demo.repository.UserRepository;
 import com.connor.demo.security.CustomException;
 import com.connor.demo.security.JwtTokenProvider;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +30,7 @@ public class UserService {
     private AuthenticationManager authenticationManager;
     private JwtTokenProvider jwtTokenProvider;
     private PasswordEncoder passwordEncoder;
+    private static final ModelMapper modelMapper = new ModelMapper();
 
 
     @Autowired
@@ -70,9 +73,19 @@ public class UserService {
         }
     }
 
-//    public Iterable<User> test(){
-//        return userRepository.findAllUserIdAndUsername();
-//    }
+    public Iterable<UserDto> findAllUserDto(){
+        return userRepository.findAllUserDto();
+    }
+
+    public Iterable<UserDto> searchUsers(String searchTerm) {
+        searchTerm = searchTerm.replaceAll(" ", "");
+        Set<UserDto> result = new HashSet<>();
+        for (User user: userRepository.searchUsers(searchTerm)){
+            result.add(new UserDto(user.getId(), user.getUsername()));
+        }
+        return result;
+    }
+
 
     public Iterable<ArtistRating> getUserRatings(Long id){
         User user = userRepository.findUserById(id);

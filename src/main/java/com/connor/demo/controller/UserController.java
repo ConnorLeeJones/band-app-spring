@@ -1,6 +1,7 @@
 package com.connor.demo.controller;
 
 
+import com.connor.demo.model.UserDto;
 import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
@@ -50,6 +51,16 @@ public class UserController {
     @GetMapping("/user/{id}/album/ratings")
     public ResponseEntity<Iterable<AlbumRating>> getUserAlbumRatings(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserAlbumRatings(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/dto")
+    public ResponseEntity<Iterable<UserDto>> findAllUserDto() {
+        return new ResponseEntity<>(userService.findAllUserDto(), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/search")
+    public ResponseEntity<Iterable<UserDto>> searchUsers(@RequestParam String searchTerm) {
+        return new ResponseEntity<>(userService.searchUsers(searchTerm), HttpStatus.OK);
     }
 
 //    @GetMapping("/users/test")
