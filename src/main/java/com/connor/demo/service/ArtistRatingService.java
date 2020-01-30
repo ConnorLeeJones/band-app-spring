@@ -41,7 +41,7 @@ public class ArtistRatingService {
     public Iterable<ArtistRating> getUserArtistRatings(Long id, Integer pageNo, Integer pageSize, String sortBy)
     {
         Pageable paging;
-        if (sortBy.equalsIgnoreCase("artist_name")){
+        if (sortBy.equalsIgnoreCase("name")){
             paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         } else {
             paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());

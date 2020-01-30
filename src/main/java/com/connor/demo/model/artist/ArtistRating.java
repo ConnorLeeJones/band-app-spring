@@ -27,8 +27,8 @@ public class ArtistRating {
     @Column(name = "rating")
     private int rating;
 
-    @Column(name = "artist_name")
-    private String artist_name;
+    @Column(name = "name")
+    private String name;
 
     @CreationTimestamp
     @Column(name = "created_date", updatable=false)
@@ -46,7 +46,7 @@ public class ArtistRating {
         this.artist = artist;
         this.rating = rating;
         if (artist != null)
-            this.artist_name = artist.getName();
+            this.name = artist.getName();
     }
 
 
@@ -98,11 +98,11 @@ public class ArtistRating {
         this.modifiedDate = modifiedDate;
     }
 
-    public String getArtist_name() {
-        return artist_name;
+    public String getName() {
+        return name;
     }
 
-    public void setArtist_name(String artist_name) {
-        this.artist_name = artist_name;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -3,6 +3,7 @@ package com.connor.demo.controller;
 
 import com.connor.demo.model.album.Album;
 import com.connor.demo.model.album.AlbumRating;
+import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.service.AlbumRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class AlbumRatingController {
     }
 
 
-    @GetMapping("/album/ratings")
+    @GetMapping("/album/ratings/all")
     public ResponseEntity<Iterable<AlbumRating>> findAll() {
         return new ResponseEntity<>(albumRatingService.findAll(), HttpStatus.OK);
     }
@@ -38,6 +39,14 @@ public class AlbumRatingController {
     @GetMapping("album/ratings/{id}")
     public ResponseEntity<AlbumRating> findUserAlbumRating(HttpServletRequest request, @PathVariable Long id) {
         return new ResponseEntity<>(albumRatingService.findUserAlbumRating(request, id), HttpStatus.OK);
+    }
+
+    @GetMapping("albums/ratings")
+    public ResponseEntity<Iterable<AlbumRating>> findUserAlbumRatings(@RequestParam Long id,
+                                                                        @RequestParam(defaultValue = "0") Integer pageNo,
+                                                                        @RequestParam(defaultValue = "6") Integer pageSize,
+                                                                        @RequestParam(defaultValue = "rating") String sortBy) {
+        return new ResponseEntity<>(albumRatingService.getUserAlbumRatings(id, pageNo, pageSize, sortBy), HttpStatus.OK);
     }
 
 }
