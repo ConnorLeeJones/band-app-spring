@@ -10,6 +10,7 @@ import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.friend.Friend;
+import com.connor.demo.model.movie.MovieRating;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -62,6 +63,13 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfile")
     @JsonIgnore
     private Set<AlbumRating> album_ratings = new HashSet<>();
+
+
+    @OneToMany(mappedBy = "userProfile")
+    @JsonIgnore
+    private Set<MovieRating> movie_ratings = new HashSet<>();
+
+
 
     @OneToMany(mappedBy = "userProfile")
     @JsonIgnore
@@ -157,5 +165,13 @@ public class UserProfile {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Set<MovieRating> getMovie_ratings() {
+        return movie_ratings;
+    }
+
+    public void setMovie_ratings(Set<MovieRating> movie_ratings) {
+        this.movie_ratings = movie_ratings;
     }
 }

@@ -58,7 +58,7 @@ public class MovieRatingService {
     }
 
 
-    public MovieRating findUserMovieRating(HttpServletRequest request, Long id){
+    public MovieRating findUserMovieRating(HttpServletRequest request, String id){
         User user = userService.getUserByToken(request);
         Movie movie = movieRepository.findById(id).orElse(null);
         if (movie != null) {
