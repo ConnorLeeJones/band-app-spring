@@ -65,6 +65,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             UserProfile profile = new UserProfile(user.getId());
+            profile.setUsername(user.getUsername());
             user.setUserProfile(profile);
             user.setToken(jwtTokenProvider.createToken(user.getUsername()));
             return userRepository.save(user);
@@ -112,7 +113,6 @@ public class UserService {
         }
         return ids;
     }
-
 
     public User getUserByToken(HttpServletRequest req) {
         return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));

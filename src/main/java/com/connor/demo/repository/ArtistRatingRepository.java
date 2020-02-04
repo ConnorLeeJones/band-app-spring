@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ArtistRatingRepository extends JpaRepository<ArtistRating, Long> {
 
+    Page<ArtistRating> findAll(Pageable pageable);
     Page<ArtistRating> findByUserProfileProfileId(Long id, Pageable pageable);
     ArtistRating findByArtistAndUserProfileProfileId(Artist artist, Long profileId);
 

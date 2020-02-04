@@ -1,5 +1,4 @@
-package com.connor.demo.model.artist;
-
+package com.connor.demo.model.friend;
 
 import com.connor.demo.model.UserProfile;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,10 +8,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class ArtistRating {
+public class Friend {
 
     @EmbeddedId
-    private ArtistRatingKey id;
+    private FriendKey id;
 
     @ManyToOne
     @MapsId("profile_id")
@@ -20,16 +19,9 @@ public class ArtistRating {
     private UserProfile userProfile;
 
     @ManyToOne
-    @MapsId("artist_id")
-    @JoinColumn(name = "artist_id")
-    private Artist artist;
-
-    @Column(name = "rating")
-    private int rating;
-
-    @Column(name = "name")
-    private String name;
-
+    @MapsId("friend_id")
+    @JoinColumn(name = "friend_id")
+    private UserProfile friendProfile;
 
     @CreationTimestamp
     @Column(name = "created_date", updatable=false)
@@ -39,40 +31,14 @@ public class ArtistRating {
     @UpdateTimestamp
     private Timestamp modifiedDate;
 
-    public ArtistRating() {}
+    public Friend() {}
 
-    public ArtistRating(ArtistRatingKey id, UserProfile userProfile, Artist artist, int rating) {
-        this.id = id;
-        this.userProfile = userProfile;
-        this.artist = artist;
-        this.rating = rating;
-        if (artist != null)
-            this.name = artist.getName();
-    }
-
-
-    public ArtistRatingKey getId() {
+    public FriendKey getId() {
         return id;
     }
 
-    public void setId(ArtistRatingKey id) {
+    public void setId(FriendKey id) {
         this.id = id;
-    }
-
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public UserProfile getUserProfile() {
@@ -81,6 +47,14 @@ public class ArtistRating {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public UserProfile getFriendProfile() {
+        return friendProfile;
+    }
+
+    public void setFriendProfile(UserProfile friendProfile) {
+        this.friendProfile = friendProfile;
     }
 
     public Timestamp getCreatedDate() {
@@ -97,13 +71,5 @@ public class ArtistRating {
 
     public void setModifiedDate(Timestamp modifiedDate) {
         this.modifiedDate = modifiedDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

@@ -29,6 +29,11 @@ public class ArtistRatingController {
         return new ResponseEntity<>(artistRatingService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/ratings/recent")
+    public ResponseEntity<Iterable<ArtistRating>> findRecent() {
+        return new ResponseEntity<>(artistRatingService.findRecent(), HttpStatus.OK);
+    }
+
     @PostMapping("/ratings/{rating}")
     public ResponseEntity<ArtistRating> addArtist(HttpServletRequest request, @RequestBody Artist artist, @PathVariable int rating) {
         return new ResponseEntity<>(artistRatingService.addRating(request, artist, rating), HttpStatus.OK);
