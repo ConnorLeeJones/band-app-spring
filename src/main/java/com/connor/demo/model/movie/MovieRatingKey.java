@@ -11,11 +11,11 @@ public class MovieRatingKey implements Serializable {
     private Long profile_id;
 
     @Column(name = "movie_id")
-    private Long movie_id;
+    private String movie_id;
 
     public MovieRatingKey() {}
 
-    public MovieRatingKey(Long profile_id, Long movie_id) {
+    public MovieRatingKey(Long profile_id, String movie_id) {
         this.profile_id = profile_id;
         this.movie_id = movie_id;
     }
@@ -28,11 +28,11 @@ public class MovieRatingKey implements Serializable {
         this.profile_id = profile_id;
     }
 
-    public Long getMovie_id() {
+    public String getMovie_id() {
         return movie_id;
     }
 
-    public void setMovie_id(Long movie_id) {
+    public void setMovie_id(String movie_id) {
         this.movie_id = movie_id;
     }
 }

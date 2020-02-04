@@ -36,7 +36,7 @@ public class MovieRatingController {
     }
 
     @GetMapping("ratings/{id}")
-    public ResponseEntity<MovieRating> findUserMovieRating(HttpServletRequest request, @PathVariable Long id) {
+    public ResponseEntity<MovieRating> findUserMovieRating(HttpServletRequest request, @PathVariable String id) {
         return new ResponseEntity<>(movieRatingService.findUserMovieRating(request, id), HttpStatus.OK);
     }
 

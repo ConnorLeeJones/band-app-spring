@@ -17,7 +17,7 @@ public class MovieService {
 
     public Iterable<Movie> findAll(){return movieRepository.findAll();}
 
-    public Movie findById(Long id){return movieRepository.findById(id).orElse(null);}
+    public Movie findById(String id){return movieRepository.findById(id).orElse(null);}
 
     public Movie addMovie(Movie movie) {
         return movieRepository.save(movie);

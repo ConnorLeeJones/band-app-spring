@@ -6,6 +6,7 @@ import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
+import com.connor.demo.model.movie.MovieRating;
 import com.connor.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,11 @@ public class UserController {
     @GetMapping("/user/{id}/album/ratings")
     public ResponseEntity<Iterable<AlbumRating>> getUserAlbumRatings(@PathVariable Long id) {
         return new ResponseEntity<>(userService.getUserAlbumRatings(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{id}/movie/ratings")
+    public ResponseEntity<Iterable<MovieRating>> getUserMovieRatings(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserMovieRatings(id), HttpStatus.OK);
     }
 
     @GetMapping("/users/dto")
