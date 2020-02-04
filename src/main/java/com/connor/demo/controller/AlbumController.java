@@ -22,13 +22,13 @@ public class AlbumController {
     }
 
     @GetMapping("/albums")
-    public ResponseEntity<Iterable<Album>> getUsers() {
+    public ResponseEntity<Iterable<Album>> getAlbums() {
         return new ResponseEntity<>(albumService.findAll(), HttpStatus.OK);
     }
 
 
     @PostMapping("/albums")
-    public ResponseEntity<Album> addArtist(HttpServletRequest request, @RequestBody Album album) {
+    public ResponseEntity<Album> addAlbum(HttpServletRequest request, @RequestBody Album album) {
         return new ResponseEntity<>(albumService.addAlbum(request, album), HttpStatus.OK);
     }
 
