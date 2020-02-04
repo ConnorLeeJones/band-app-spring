@@ -9,6 +9,7 @@ import com.connor.demo.model.album.Album;
 import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
+import com.connor.demo.model.friend.Friend;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -62,7 +63,12 @@ public class UserProfile {
     @JsonIgnore
     private Set<AlbumRating> album_ratings = new HashSet<>();
 
+    @OneToMany(mappedBy = "userProfile")
+    @JsonIgnore
+    private Set<Friend> friends = new HashSet<>();
 
+    @Column(name = "username")
+    private String username;
 
     @Email
     @Column(name = "email")
@@ -74,6 +80,12 @@ public class UserProfile {
     public UserProfile(Long profileId){
         this.profileId = profileId;
     }
+
+    public UserProfile(Long profileId, String username){
+        this.profileId = profileId;
+        this.username = username;
+    }
+
 
     public Long getProfileId() {
         return profileId;
@@ -129,5 +141,21 @@ public class UserProfile {
 
     public void setAlbum_ratings(Set<AlbumRating> album_ratings) {
         this.album_ratings = album_ratings;
+    }
+
+    public Set<Friend> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Friend> friends) {
+        this.friends = friends;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
