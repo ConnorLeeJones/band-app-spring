@@ -6,6 +6,7 @@ import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
 import com.connor.demo.model.UserProfile;
+import com.connor.demo.model.friend.Friend;
 import com.connor.demo.model.movie.MovieRating;
 import com.connor.demo.repository.UserRepository;
 import com.connor.demo.security.CustomException;
@@ -92,6 +93,11 @@ public class UserService {
     public Iterable<ArtistRating> getUserRatings(Long id){
         User user = userRepository.findUserById(id);
         return user.getUserProfile().getRatings();
+    }
+
+    public Iterable<Friend> getUserFriends(Long id){
+        User user = userRepository.findUserById(id);
+        return user.getUserProfile().getFriends();
     }
 
     public Iterable<AlbumRating> getUserAlbumRatings(Long id){
