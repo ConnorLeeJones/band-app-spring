@@ -6,22 +6,28 @@ import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.User;
+import com.connor.demo.model.friend.Friend;
 import com.connor.demo.model.movie.MovieRating;
+import com.connor.demo.service.FriendService;
 import com.connor.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private UserService userService;
+    private FriendService friendService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, FriendService friendService) {
         this.userService = userService;
+        this.friendService = friendService;
     }
 
     @GetMapping("/users")
@@ -68,6 +74,17 @@ public class UserController {
     public ResponseEntity<Iterable<UserDto>> searchUsers(@RequestParam String searchTerm) {
         return new ResponseEntity<>(userService.searchUsers(searchTerm), HttpStatus.OK);
     }
+
+    @GetMapping("/user/{id}/friends")
+    public ResponseEntity<Iterable<Friend>> getUserFriends(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.getUserFriends(id), HttpStatus.OK);
+    }
+
+//    @GetMapping("/user/{id}/friends/ids")
+//    public ResponseEntity<Iterable<Long>> getUserFriendIds(HttpServletRequest request) {
+//        return new ResponseEntity<>(friendService.findFriendIds(request), HttpStatus.OK);
+//    }
+
 
 //    @GetMapping("/users/test")
 //    public ResponseEntity<Iterable<User>> test() {

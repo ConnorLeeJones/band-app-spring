@@ -33,6 +33,12 @@ public class Friend {
 
     public Friend() {}
 
+    public Friend(FriendKey id, UserProfile userProfile, UserProfile friendProfile) {
+        this.id = id;
+        this.userProfile = userProfile;
+        this.friendProfile = friendProfile;
+    }
+
     public FriendKey getId() {
         return id;
     }
