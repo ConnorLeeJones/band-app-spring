@@ -32,6 +32,12 @@ public class FriendService {
         return friendRepository.save(friend);
     }
 
+    public Boolean unfollow(Long userId, Long friendId){
+        Friend friend = friendRepository.findById(new FriendKey(userId, friendId));
+        friendRepository.delete(friend);
+        return true;
+    }
+
     public Iterable<Long> findFriendIds(HttpServletRequest request){
         User user = userService.getUserByToken(request);
         return friendRepository.findFriendIds(user.getId());
