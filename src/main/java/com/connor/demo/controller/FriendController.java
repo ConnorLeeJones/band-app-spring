@@ -26,6 +26,11 @@ public class FriendController {
         return new ResponseEntity<>(friendService.addFriend(userId, friendId), HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteFriend(@RequestParam Long userId, @RequestParam Long friendId) {
+        return new ResponseEntity<>(friendService.unfollow(userId, friendId), HttpStatus.OK);
+    }
+
     @GetMapping("user/ids")
     public ResponseEntity<Iterable<Long>> getUserFriendIds(HttpServletRequest request) {
         return new ResponseEntity<>(friendService.findFriendIds(request), HttpStatus.OK);
