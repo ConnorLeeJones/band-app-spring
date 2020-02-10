@@ -52,4 +52,11 @@ public class ArtistRatingController {
         return new ResponseEntity<>(artistRatingService.getUserArtistRatings(id, pageNo, pageSize, sortBy), HttpStatus.OK);
     }
 
+    @GetMapping("artists/ratings/friends")
+    public ResponseEntity<Iterable<ArtistRating>> findFriendsRecentArtistRatings(HttpServletRequest request,
+                                                                        @RequestParam(defaultValue = "0") Integer pageNo,
+                                                                        @RequestParam(defaultValue = "6") Integer pageSize) {
+        return new ResponseEntity<>(artistRatingService.findRecentFriendRatings(request, pageNo, pageSize), HttpStatus.OK);
+    }
+
 }

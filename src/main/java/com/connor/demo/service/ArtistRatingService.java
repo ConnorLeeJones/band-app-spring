@@ -5,6 +5,7 @@ import com.connor.demo.model.artist.Artist;
 import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.model.artist.ArtistRatingKey;
 import com.connor.demo.model.User;
+import com.connor.demo.model.friend.Friend;
 import com.connor.demo.repository.ArtistRatingRepository;
 import com.connor.demo.repository.ArtistRepository;
 import com.connor.demo.repository.UserProfileRepository;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+import java.util.List;
 
 
 @Service
@@ -25,19 +28,19 @@ public class ArtistRatingService {
     private ArtistService artistService;
     private UserService userService;
     private ArtistRepository artistRepository;
-    private UserProfileRepository userProfileRepository;
+    private FriendService friendService;
 
 
 
     @Autowired
     public ArtistRatingService(ArtistRatingRepository artistRatingRepository, UserService userService,
                                ArtistService artistService, ArtistRepository artistRepository,
-                               UserProfileRepository userProfileRepository) {
+                               FriendService friendService) {
         this.artistRatingRepository = artistRatingRepository;
         this.userService = userService;
         this.artistService = artistService;
         this.artistRepository = artistRepository;
-        this.userProfileRepository = userProfileRepository;
+        this.friendService = friendService;
     }
 
     public Iterable<ArtistRating> findAll(){return artistRatingRepository.findAll();}
@@ -45,6 +48,13 @@ public class ArtistRatingService {
     public Iterable<ArtistRating> findRecent(){
         Pageable paging = PageRequest.of(0, 5, Sort.by("modifiedDate").descending());
         return artistRatingRepository.findAll(paging);
+    }
+
+    public Iterable<ArtistRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        List<Long> ids = (List<Long>) friendService.findFriendIds(request);
+        System.out.println(ids);
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
+        return artistRatingRepository.findByUserProfileFriends(ids, paging);
     }
 
 
