@@ -1,6 +1,7 @@
 package com.connor.demo.service;
 
 import com.connor.demo.model.User;
+import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.movie.Movie;
 import com.connor.demo.model.movie.MovieRating;
 import com.connor.demo.model.movie.MovieRatingKey;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Service
 public class MovieRatingService {
@@ -21,13 +23,15 @@ public class MovieRatingService {
     private MovieRepository movieRepository;
     private MovieService movieService;
     private UserService userService;
+    private FriendService friendService;
 
 
-    public MovieRatingService(MovieRatingRepository movieRatingRepository, MovieRepository movieRepository, MovieService movieService, UserService userService) {
+    public MovieRatingService(MovieRatingRepository movieRatingRepository, MovieRepository movieRepository, MovieService movieService, UserService userService, FriendService friendService) {
         this.movieRatingRepository = movieRatingRepository;
         this.movieRepository = movieRepository;
         this.movieService = movieService;
         this.userService = userService;
+        this.friendService = friendService;
     }
 
     public Iterable<MovieRating> findAll(){return movieRatingRepository.findAll();}
@@ -38,7 +42,6 @@ public class MovieRatingService {
             rating.setName(rating.getMovie().getTitle());
             movieRatingRepository.save(rating);
         }
-
 
         Pageable paging;
         if (sortBy.equalsIgnoreCase("name")){
@@ -55,6 +58,13 @@ public class MovieRatingService {
         } else {
             return null;
         }
+    }
+
+    public Iterable<MovieRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        List<Long> ids = (List<Long>) friendService.findFriendIds(request);
+        System.out.println(ids);
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
+        return movieRatingRepository.findByUserProfileFriends(ids, paging);
     }
 
 

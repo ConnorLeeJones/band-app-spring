@@ -1,5 +1,4 @@
 package com.connor.demo.controller;
-
 import com.connor.demo.model.movie.Movie;
 import com.connor.demo.model.movie.MovieRating;
 import com.connor.demo.service.MovieRatingService;
@@ -46,6 +45,13 @@ public class MovieRatingController {
                                                                      @RequestParam(defaultValue = "6") Integer pageSize,
                                                                      @RequestParam(defaultValue = "rating") String sortBy) {
         return new ResponseEntity<>(movieRatingService.getUserMovieRatings(id, pageNo, pageSize, sortBy), HttpStatus.OK);
+    }
+
+    @GetMapping("ratings/friends")
+    public ResponseEntity<Iterable<MovieRating>> findFriendsRecentArtistRatings(HttpServletRequest request,
+                                                                                 @RequestParam(defaultValue = "0") Integer pageNo,
+                                                                                 @RequestParam(defaultValue = "6") Integer pageSize) {
+        return new ResponseEntity<>(movieRatingService.findRecentFriendRatings(request, pageNo, pageSize), HttpStatus.OK);
     }
 
 

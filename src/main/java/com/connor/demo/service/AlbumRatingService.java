@@ -4,9 +4,6 @@ import com.connor.demo.model.User;
 import com.connor.demo.model.album.Album;
 import com.connor.demo.model.album.AlbumRating;
 import com.connor.demo.model.album.AlbumRatingKey;
-
-import com.connor.demo.model.artist.Artist;
-import com.connor.demo.model.artist.ArtistRating;
 import com.connor.demo.repository.AlbumRatingRepository;
 import com.connor.demo.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class AlbumRatingService {
@@ -26,16 +23,18 @@ public class AlbumRatingService {
     private AlbumRepository albumRepository;
     private AlbumService albumService;
     private UserService userService;
+    private FriendService friendService;
 
 
 
     @Autowired
     public AlbumRatingService(AlbumRatingRepository albumRatingRepository, UserService userService,
-                              AlbumService albumService, AlbumRepository albumRepository) {
+                              AlbumService albumService, AlbumRepository albumRepository, FriendService friendService) {
         this.albumRatingRepository = albumRatingRepository;
         this.userService = userService;
         this.albumService = albumService;
         this.albumRepository = albumRepository;
+        this.friendService = friendService;
     }
 
     public Iterable<AlbumRating> findAll(){return albumRatingRepository.findAll();}
@@ -65,17 +64,12 @@ public class AlbumRatingService {
         }
     }
 
-
-
-//    public AlbumRating findUserAlbumRating(HttpServletRequest request, Long id){
-//        Set<AlbumRating> ratings = userService.getUserByToken(request).getUserProfile().getAlbum_ratings();
-//        for (AlbumRating rating : ratings){
-//            if (rating.getAlbum().getAlbum_id().equals(id)){
-//                return rating;
-//            }
-//        }
-//        return new AlbumRating(null, null, null, 0);
-//    }
+    public Iterable<AlbumRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
+        List<Long> ids = (List<Long>) friendService.findFriendIds(request);
+        System.out.println(ids);
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
+        return albumRatingRepository.findByUserProfileFriends(ids, paging);
+    }
 
     public AlbumRating findUserAlbumRating(HttpServletRequest request, Long id){
         User user = userService.getUserByToken(request);
