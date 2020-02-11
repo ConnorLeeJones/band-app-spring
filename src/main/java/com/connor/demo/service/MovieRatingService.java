@@ -53,7 +53,6 @@ public class MovieRatingService {
         Page<MovieRating> pagedResult = movieRatingRepository.findByUserProfileProfileId(id, paging);
 
         if(pagedResult.hasContent()) {
-            System.out.println(pagedResult.getTotalElements());
             return pagedResult;
         } else {
             return null;
@@ -62,7 +61,6 @@ public class MovieRatingService {
 
     public Iterable<MovieRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
         List<Long> ids = (List<Long>) friendService.findFriendIds(request);
-        System.out.println(ids);
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
         return movieRatingRepository.findByUserProfileFriends(ids, paging);
     }

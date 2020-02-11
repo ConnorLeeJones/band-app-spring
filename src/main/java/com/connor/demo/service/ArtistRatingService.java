@@ -52,7 +52,6 @@ public class ArtistRatingService {
 
     public Iterable<ArtistRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
         List<Long> ids = (List<Long>) friendService.findFriendIds(request);
-        System.out.println(ids);
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
         return artistRatingRepository.findByUserProfileFriends(ids, paging);
     }
@@ -70,7 +69,6 @@ public class ArtistRatingService {
         Page<ArtistRating> pagedResult = artistRatingRepository.findByUserProfileProfileId(id, paging);
 
         if(pagedResult.hasContent()) {
-            System.out.println(pagedResult.getTotalElements());
             return pagedResult;
         } else {
             return null;
