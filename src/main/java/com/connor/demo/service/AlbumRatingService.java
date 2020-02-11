@@ -57,7 +57,6 @@ public class AlbumRatingService {
         Page<AlbumRating> pagedResult = albumRatingRepository.findByUserProfileProfileId(id, paging);
 
         if(pagedResult.hasContent()) {
-            System.out.println(pagedResult.getTotalElements());
             return pagedResult;
         } else {
             return null;
@@ -66,7 +65,6 @@ public class AlbumRatingService {
 
     public Iterable<AlbumRating> findRecentFriendRatings(HttpServletRequest request, Integer pageNo, Integer pageSize){
         List<Long> ids = (List<Long>) friendService.findFriendIds(request);
-        System.out.println(ids);
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by("modified_date").descending());
         return albumRatingRepository.findByUserProfileFriends(ids, paging);
     }
